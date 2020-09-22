@@ -1,0 +1,7 @@
+.TopNavigation {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #FBFBFB;
+  height: 50px;
+}
