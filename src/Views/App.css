@@ -1,10 +1,10 @@
-html, body, header, footer, nav, div, section, article, p, button, span, a, input, form, h1, h2, h3, h4, h5, h6 {
+html, body, header, footer, nav, div, section, article, p, button, span, a, input, form, h1, h2, h3, h4, h5, h6, ul, ol, li {
   padding: 0;
   margin: 0;
 }
 
 .brandColor {
-  color: #DBAEDE;
+  color: #e993ee;
 }
 
 body {
@@ -39,4 +39,53 @@ h1, h2, h3, h4, h5, h6 {
   font-family: factoria, serif;
   font-weight: 700;
   font-style: normal;
+}
+
+@-webkit-keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: .4;
+  }
+  100% {
+    width: 300%;
+    height: 300%;
+    opacity: 0;
+  }
+}
+@keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: .4;
+  }
+  100% {
+    width: 340px;
+    height: 340px;
+    opacity: 0;
+  }
+}
+
+.ripple:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: #DBAEDE;
+  visibility: hidden;
+  z-index: 2;
+}
+.ripple:not(:active):before {
+  -webkit-animation: ripple .6s cubic-bezier(0, 0, 0.2, 1);
+          animation: ripple .6s cubic-bezier(0, 0, 0.2, 1);
+  -webkit-transition: visibility .4s step-end;
+  transition: visibility .6s step-end;
+}
+.ripple:active:before {
+  visibility: visible;
 }

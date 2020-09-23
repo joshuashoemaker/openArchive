@@ -1,7 +1,21 @@
 .TopNavigation {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background-color: #FBFBFB;
   height: 50px;
+}
+
+.menuIcon {
+  cursor: pointer;
+  height: 30px;
+  padding: 10px;
+}
+
+.menuIcon:hover {
+  background-color: #dbaede2f;
+}
+
+.menuIcon:active {
+  background-color: #dbaedec4;
 }
