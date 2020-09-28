@@ -1,0 +1,10 @@
+.AddFileView {
+  position: fixed;
+  width: calc(100vw - 260px);
+  height: calc(100vh - 50px);
+  top: 50px;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

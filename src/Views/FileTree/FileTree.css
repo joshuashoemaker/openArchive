@@ -1,7 +1,11 @@
 .FileTree {
-  width: 300px;
+  width: 260px;
   text-align: center;
   background-color: #FBFBFB;
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+  position: fixed;
+  top: 50px;
 }
 
 .FileTreeLineItem {
@@ -27,4 +31,26 @@
 .FileTreeLineItem:hover, .FileTreeLineItem:focus {
   background-color: #f5f5f5;
   opacity: .9;
+}
+
+.FileTree {
+  font-family: noto-sans, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scroll 1 */
+.FileTree::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.FileTree::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+.FileTree::-webkit-scrollbar-thumb {
+  background-color: #dfdfdf;
+  border-radius: 10px;
 }

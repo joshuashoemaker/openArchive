@@ -1,0 +1,13 @@
+.AddFileForm {
+  padding: 80px 100px;
+  border-radius: 16px;
+  box-shadow: 4px 6px 22px rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
+.addFormButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 20px;
+}

@@ -1,0 +1,21 @@
+.TextEditorView {
+  width: 800px;
+  height: calc(100vh - 50px);
+  background-color: #FBFBFB;
+  position: fixed;
+  top: 50px;
+  right: -1000px;
+  transition-duration: 0.4s;
+  transition-timing-function: ease;
+  z-index: 100000000;
+  color: black;
+}
+
+.textditorOpen {
+  right: 0px;
+}
+
+.sectionAsText {
+  padding: 6px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}

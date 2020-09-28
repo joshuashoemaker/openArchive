@@ -1,0 +1,31 @@
+.Menu {
+  width: 260px;
+  height: calc(100vh - 50px);
+  background-color: var(--brandColor);
+  position: fixed;
+  top: 50px;
+  left: -400px;
+  transition-duration: 0.4s;
+  transition-timing-function: ease;
+  z-index: 100000000;
+  color: white;
+}
+
+.menuOpen {
+  left: 0px;
+}
+
+.MenuItem {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 6px;
+}
+
+.MenuItem img {
+  margin: 0px 12px;
+}
+
+.MenuItem:hover {
+  background-color: var(--brandColorLight);
+}

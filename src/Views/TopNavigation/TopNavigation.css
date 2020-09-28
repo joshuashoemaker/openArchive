@@ -17,5 +17,5 @@
 }
 
 .menuIcon:active {
-  background-color: #dbaedec4;
+  background-color: var(--brandColorLight);
 }
