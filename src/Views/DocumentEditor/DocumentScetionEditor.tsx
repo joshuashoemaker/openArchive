@@ -46,7 +46,7 @@ class DocumentSectionEditor extends Component<Props, State> {
         s.width,
         s.height
       )
-      this.canvasContext!.strokeStyle = 'black'
+      this.canvasContext!.strokeStyle = '#dc8dec'
       this.canvasContext!.lineWidth = 2
       this.canvasContext!.stroke()
     })

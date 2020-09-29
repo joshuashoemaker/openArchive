@@ -19,3 +19,15 @@
   padding: 6px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+.progressBar {
+  display: block;
+  background-color: var(--brandColor);
+  width: 100%;
+  color: white;
+  text-align: center;
+  height: 16px;
+  overflow: hidden;
+  margin: 2px auto;
+  font-size: 12px;
+}

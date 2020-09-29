@@ -6,27 +6,35 @@ import Tesseract from 'tesseract.js'
 import DocumentSection from '../../Entities/DocumentSection'
 
 type Props = {}
-type State = { isOpen: boolean, textSections: string[], progress: number }
+type State = {
+  isOpen: boolean,
+  processedScetions: { index: number, text: string}[],
+  processingStatus: {index: number, progress: number}[],
+  progress: number
+}
 
 class TextEditorView extends Component<Props, State> {
   selectedDocument: SelectedDocument
   constructor () {
     super({})
-    this.state = { isOpen: false, textSections: [], progress: 0 }
+    this.state = {
+      isOpen: false,
+      processedScetions: [],
+      processingStatus: [],
+      progress: 0
+    }
     this.selectedDocument = new SelectedDocument()
     document.addEventListener('toggleTextEditor', () => { this.toggleOpenTextEditor() })
-    Tesseract.setLogging(true);
   }
 
-  getTextFromSelectedDocument = async () => {
+  proceessSections = async () => {
+    this.setState({ processedScetions: [], processingStatus: [] })
     const documentSections = this.selectedDocument.sections
 
     if (!documentSections || documentSections.length < 0) return 
 
-    let sectionsAsText: string[] = []
-    documentSections.forEach(async (s: DocumentSection) => {
-      console.log(s)
-
+    let processedScetions: { index: number, text: string}[] = []
+    documentSections.forEach(async (s: DocumentSection, index) => {
       const tempCanvas = document.createElement('canvas')
       tempCanvas.width = s.image.width
       tempCanvas.height = s.image.height
@@ -35,16 +43,31 @@ class TextEditorView extends Component<Props, State> {
       const sectionAsBase64 = tempCanvas.toDataURL()
       console.log(sectionAsBase64)
 
-      const text = await this.work(sectionAsBase64)
-      sectionsAsText.push(text)
-      console.log(sectionsAsText)
-      this.setState({ textSections: sectionsAsText })
+      const text = await this.work(sectionAsBase64, index)
+      processedScetions.push({index: index, text: text})
+      this.setState({ processedScetions: processedScetions })
     })
   }
 
-  work = async (documentSectionAsBase64: string) => {
+  work = async (documentSectionAsBase64: string, jobindex: number) => {
+    const that = this
     const worker = Tesseract.createWorker({
-      logger: m => console.log(m)
+      logger: m => {
+        console.log(m)
+
+        let status = { index: jobindex, progress: 0 }
+        if (m.status === 'recognizing text') status = { index: jobindex, progress: m.progress || 0}
+
+        const indexOfStatusStateToChange = this.state.processingStatus.findIndex((status: any) => {
+          return status.index === jobindex
+        })
+        if (indexOfStatusStateToChange >= 0){
+          this.state.processingStatus.splice(indexOfStatusStateToChange, 1)
+        }
+        let newProcessingState = this.state.processingStatus
+        newProcessingState.push(status)
+        that.setState({ processingStatus: newProcessingState})
+      }
     });
     await worker.load();
     await worker.loadLanguage('eng');
@@ -66,18 +89,34 @@ class TextEditorView extends Component<Props, State> {
   }
 
   renderSectionsElemeents = () => {
-    const sectionElements = this.state.textSections.map((s: string) => {
-      return <p className='sectionAsText'>
-        { s }
-      </p>
+    const sectionElements = this.state.processedScetions.sort((a: any, b: any) => {
+      return a.index - b.index
+    }).map((s: any) => {
+      return <section className='sectionAsText'>
+        { s.text }
+      </section>
     })
     return sectionElements
+  }
+
+  renderStatusElements = () => {
+    const statusElements = this.state.processingStatus.sort((a, b) => {
+      return a.index - b.index
+    }).map((s: {index: number, progress: number}) => {
+      return <span
+        className='progressBar'
+        style={{width: `${s.progress * 100}%`}}>
+          Section { s.index + 1 } - { Math.floor(s.progress * 100) }% Processed
+      </span>
+    })
+    return statusElements
   }
 
   render = () => {
     return (
       <div className={`TextEditorView ${this.state.isOpen ? 'textditorOpen' : '' }`}>
-        <button className='fluid' onClick={this.getTextFromSelectedDocument}>Process</button>
+        <button  className='ghostButton fluid' onClick={this.proceessSections}>Process</button>
+        { this.renderStatusElements() }
         { this.renderSectionsElemeents() }
       </div>
     )
