@@ -41,7 +41,6 @@ class TextEditorView extends Component<Props, State> {
       const tempCanvasContext = tempCanvas.getContext('2d')
       tempCanvasContext?.putImageData(s.image, 0, 0)
       const sectionAsBase64 = tempCanvas.toDataURL()
-      console.log(sectionAsBase64)
 
       const text = await this.work(sectionAsBase64, index)
       processedScetions.push({index: index, text: text})

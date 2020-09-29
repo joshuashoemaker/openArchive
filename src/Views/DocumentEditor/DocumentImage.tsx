@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import DocumentImageController from '../../Controllers/DocumentImageController'
 import DocumentFileCollection from '../../Entities/Collections/DocumentFileCollection'
 import SelectedDocument from '../../Entities/SelctedDocument'
 import './DocumentEditorView.css'
@@ -11,12 +12,14 @@ class DocumentImage extends Component<Props, State> {
   canvasContext: CanvasRenderingContext2D | null = null
   documentFileCollection: DocumentFileCollection
   selectedDocument: SelectedDocument
+  controller: DocumentImageController
 
   constructor (props: Props) {
     super(props)
     this.canvas = React.createRef()
     this.documentFileCollection = new DocumentFileCollection()
     this.selectedDocument = new SelectedDocument()
+    this.controller = new DocumentImageController()
     document.addEventListener('selectedFile', (e: CustomEventInit) => { this.handleSelectedDocumentFile(e.detail) })
   }
 
@@ -28,26 +31,11 @@ class DocumentImage extends Component<Props, State> {
 
   handleSelectedDocumentFile = async (id: string) => {
     this.selectedDocument.id = id
-    const selectedDocumentFile = this.selectedDocument.document
+    if (!this.canvas.current || !this.canvasContext) return
 
-    if (!selectedDocumentFile) return 
-
-    const fileReader = new FileReader()
-    fileReader.readAsDataURL(selectedDocumentFile.value)
-    const image = new Image()
-    
-    if(!this.canvas.current) return
-
-    fileReader.addEventListener('load', () => {
-      image.src = fileReader.result as string
-      image.onload = () => {
-        this.canvas.current!.width = image.naturalWidth + 20
-        this.canvas.current!.height = image.naturalHeight + 20
-        this.canvasContext?.drawImage(image, 10, 10, image.width, image.height )
-        this.props.updateSectionLayerSize(image.naturalWidth + 20, image.naturalHeight + 20)
-        this.props.setImageCavas(this.canvasContext)
-      }
-    })
+    await this.controller.applySelectedDocuemntToCanvas(this.canvas.current, this.canvasContext)
+    this.props.updateSectionLayerSize(this.canvas.current.width, this.canvas.current.height)
+    this.props.setImageCavas(this.canvasContext)
   }
 
   render = () => {
