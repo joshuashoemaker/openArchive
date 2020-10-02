@@ -4,6 +4,7 @@ import './TextEditorView.css'
 
 import Tesseract from 'tesseract.js'
 import DocumentSection from '../../Entities/DocumentSection'
+import Spinner from '../common/Spinner/Spinner'
 
 type Props = {}
 type State = {
@@ -114,7 +115,9 @@ class TextEditorView extends Component<Props, State> {
   render = () => {
     return (
       <div className={`TextEditorView ${this.state.isOpen ? 'textditorOpen' : '' }`}>
-        <button  className='ghostButton fluid' onClick={this.proceessSections}>Process</button>
+        <button  className='ghostButton fluid' onClick={this.proceessSections}>
+          { (this.state.processingStatus.length > 0 && this.state.processedScetions.length < this.selectedDocument.sections!.length)  ? <Spinner /> : 'Process' }
+        </button>
         { this.renderStatusElements() }
         { this.renderSectionsElemeents() }
       </div>

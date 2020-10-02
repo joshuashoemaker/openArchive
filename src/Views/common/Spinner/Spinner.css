@@ -1,0 +1,26 @@
+.spinnerWrapper{
+  text-align: center;
+  position: relative;
+}
+
+.spinner {
+    border: 3px solid #f3f3f3; /* Light grey */
+    border-top: 3px solid var(--brandColor); /* Blue */
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 0.75s linear infinite;
+    margin: 2px auto;
+}
+
+.spinnerMessage{
+  text-align: center;
+  color: rgb(155, 155, 155);
+  font-size: 12px;
+}
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
