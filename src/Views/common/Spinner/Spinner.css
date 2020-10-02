@@ -4,13 +4,13 @@
 }
 
 .spinner {
-    border: 3px solid #f3f3f3; /* Light grey */
-    border-top: 3px solid var(--brandColor); /* Blue */
+    border: 2px solid #f3f3f3; /* Light grey */
+    border-top: 2px solid var(--brandColor); /* Blue */
     border-radius: 50%;
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     animation: spin 0.75s linear infinite;
-    margin: 2px auto;
+    margin: 0px auto;
 }
 
 .spinnerMessage{

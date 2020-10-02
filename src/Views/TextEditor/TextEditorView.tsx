@@ -11,7 +11,7 @@ type State = {
   isOpen: boolean,
   processedScetions: { index: number, text: string}[],
   processingStatus: {index: number, progress: number}[],
-  progress: number
+  isProcessing: boolean
 }
 
 class TextEditorView extends Component<Props, State> {
@@ -22,14 +22,14 @@ class TextEditorView extends Component<Props, State> {
       isOpen: false,
       processedScetions: [],
       processingStatus: [],
-      progress: 0
+      isProcessing: false
     }
     this.selectedDocument = new SelectedDocument()
     document.addEventListener('toggleTextEditor', () => { this.toggleOpenTextEditor() })
   }
 
   proceessSections = async () => {
-    this.setState({ processedScetions: [], processingStatus: [] })
+    this.setState({ processedScetions: [], processingStatus: [], isProcessing: true })
     const documentSections = this.selectedDocument.sections
 
     if (!documentSections || documentSections.length < 0) return 
@@ -46,6 +46,10 @@ class TextEditorView extends Component<Props, State> {
       const text = await this.work(sectionAsBase64, index)
       processedScetions.push({index: index, text: text})
       this.setState({ processedScetions: processedScetions })
+
+      if (processedScetions.length >= documentSections.length) {
+        this.setState({ isProcessing: false })
+      }
     })
   }
 
@@ -116,7 +120,7 @@ class TextEditorView extends Component<Props, State> {
     return (
       <div className={`TextEditorView ${this.state.isOpen ? 'textditorOpen' : '' }`}>
         <button  className='ghostButton fluid' onClick={this.proceessSections}>
-          { (this.state.processingStatus.length > 0 && this.state.processedScetions.length < this.selectedDocument.sections!.length)  ? <Spinner /> : 'Process' }
+          { this.state.isProcessing ? <Spinner /> : 'Process' }
         </button>
         { this.renderStatusElements() }
         { this.renderSectionsElemeents() }
