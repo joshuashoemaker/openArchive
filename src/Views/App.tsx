@@ -34,7 +34,6 @@ class App extends Component<Props, State> {
       <div className="App">
         <TopNavigation />
         <FileTree />
-        <Menu />
         <TextEditorView />
         <div className='Workspace'>
 

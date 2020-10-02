@@ -34,6 +34,7 @@ class AddFileForm extends Component<Props, State> {
   render = () => {
     return (
       <div className='AddFileForm'>
+        <h3>Add an Image</h3>
           <label htmlFor='documentFileLabel'>Document Label</label>
           <input ref={this.fileNameInput} type='text' name='documentFileLabel' />
 
