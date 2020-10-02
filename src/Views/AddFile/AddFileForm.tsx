@@ -38,7 +38,7 @@ class AddFileForm extends Component<Props, State> {
           <input ref={this.fileNameInput} type='text' name='documentFileLabel' />
 
         
-        <input ref={this.fileInput} type='file' name='documentFileInput' />
+        <input ref={this.fileInput} type='file' accept='image/*' name='documentFileInput' />
         
         <div className='addFormButtons'>
           <button className='ghostButton' onClick={this.handleCancel}>Cancel</button>
