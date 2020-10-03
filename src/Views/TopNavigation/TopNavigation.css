@@ -6,6 +6,20 @@
   height: 50px;
 }
 
+#navigationAppName {
+  display: flex;
+  align-items: center;
+  font-size: 26px;
+}
+
+#navigationAppName .logo {
+  margin-right: 4px;
+}
+
+.TopNavigation .logo {
+  height: 40px
+}
+
 .menuIcon {
   cursor: pointer;
   height: 30px;

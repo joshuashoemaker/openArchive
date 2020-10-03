@@ -3,6 +3,7 @@ import './TopNavigation.css'
 
 import menuIcon from '../../media/icons/addImageIcon.svg'
 import textViewIcon from '../../media/icons/editFileicon.svg'
+import logo from '../../media/logo.svg'
 
 class TopNavigation extends Component {
   toggleAddFile: Event
@@ -25,7 +26,7 @@ class TopNavigation extends Component {
     return (
       <nav className="TopNavigation">
         <img id='mainNavIcon' className='menuIcon' src={menuIcon} alt='menu icon' onClick={this.handleAddFileIconClick} />
-        <h1 id='navigationAppName' className='brandColor'>Choice Archive</h1>
+        <h1 id='navigationAppName' className='brandColor'> <img className='logo' alt='logo' src={logo} />extualize  </h1>
         <img id='mainNavIcon' className='menuIcon' src={textViewIcon} alt='view text icon' onClick={this.handleTextEditorIconClick} />
       </nav>
     )
