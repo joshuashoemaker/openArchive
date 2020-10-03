@@ -1,6 +1,6 @@
 # <img src='./src/media/logo.svg' width=50px> [Textulaize.app](https://textualize.app)
 
-[💗 Support this Extension 💗](https://github.com/sponsors/joshuashoemaker/)
+[💗 Support this Software 💗](https://github.com/sponsors/joshuashoemaker/)
 
 ![demo](./docs/demo.png)
 
